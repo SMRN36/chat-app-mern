@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router";
-import Login from "../components/Login";
-import Signup from "../components/Signup";
+import Login from "../components/Authentication/Login";
+import Signup from "../components/Authentication/Signup";
 
 function Homepage() {
   const history = useHistory();

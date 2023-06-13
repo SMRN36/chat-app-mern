@@ -1,6 +1,6 @@
-import { Box, Text } from "@chakra-ui/layout";
 import "./styles.css";
 import SingleChat from "./SingleChat";
+import { Box } from "@chakra-ui/layout";
 
 
 const Chatbox = ({
