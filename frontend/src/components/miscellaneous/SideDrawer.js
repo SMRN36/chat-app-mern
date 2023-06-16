@@ -9,6 +9,7 @@ import { useToast } from "@chakra-ui/toast";
 import ChatLoading from "../ChatLoading";
 import { Spinner } from "@chakra-ui/spinner";
 import ProfileModal from "./ProfileModal";
+import UserListItem from "../userAvatar/UserListItem";
 import {
   Menu,
   MenuButton,
@@ -58,7 +59,7 @@ function SideDrawer({
       toast({
         title: "Please Enter something in search",
         status: "warning",
-        duration: 9000,
+        duration: 5000,
         isClosable: true,
         position: "top-left",
       });
@@ -83,7 +84,7 @@ function SideDrawer({
         title: "Error Occured!",
         description: "Failed to Load the Search Results",
         status: "error",
-        duration: 9000,
+        duration: 5000,
         isClosable: true,
         position: "bottom-left",
       });
@@ -112,7 +113,7 @@ function SideDrawer({
         title: "Error fetching the chat",
         description: error.message,
         status: "error",
-        duration: 9000,
+        duration: 5000,
         isClosable: true,
         position: "bottom-left",
       });
@@ -174,7 +175,7 @@ function SideDrawer({
                 size="sm"
                 cursor="pointer"
                 name={user.name}
-                // src={user.pic}
+                src={user.pic}
               />
             </MenuButton>
             <MenuList>
@@ -206,39 +207,11 @@ function SideDrawer({
               <ChatLoading />
             ) : (
               searchResult?.map((user) => (
-                <Box
-                  onClick={() => accessChat(user._id)}
-                  cursor="pointer"
-                  bg="#E8E8E8"
-                  _hover={{
-                    background: "#38B2AC",
-                    color: "white",
-                  }}
-                  d="flex"
-                  alignItems="center"
-                  color="black"
-                  px={3}
-                  py={2}
-                  mb={2}
+                <UserListItem
                   key={user._id}
-                  borderRadius="lg"
-                >
-                  <Avatar
-                    mr={2}
-                    size="sm"
-                    cursor="pointer"
-                    name={user.name}
-                    // src={user.pic}
-                  />
-                  <Box>
-                    <Text>{user.name}</Text>
-                    <Text fontSize="xs">
-                      <b>Email : </b>
-                      {user.email}
-                    </Text>
-                  </Box>
-                  {/* {loadingChat && <Spinner ml="auto" />} */}
-                </Box>
+                  user={user}
+                  handleFunction={() => accessChat(user._id)}
+                />
               ))
             )}
             {loadingChat && <Spinner ml="auto" d="flex" />}

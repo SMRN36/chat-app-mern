@@ -10,22 +10,15 @@ import {
     useDisclosure,
     FormControl,
     Input,
-    Text,
     useToast,
     Box,
-    Avatar,
-    Badge,
   } from "@chakra-ui/react";
   import axios from "axios";
   import { useState } from "react";
+  import UserBadgeItem from "../userAvatar/UserBadgeItem";
+  import UserListItem from "../userAvatar/UserListItem";
   
-  const GroupChatModal = ({
-    user,
-    children,
-    setSelectedChat,
-    chats,
-    setChats,
-  }) => {
+  const GroupChatModal = ({ user, children, chats, setChats }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [groupChatName, setGroupChatName] = useState();
     const [selectedUsers, setSelectedUsers] = useState([]);
@@ -39,7 +32,7 @@ import {
         toast({
           title: "User already added",
           status: "warning",
-          duration: 9000,
+          duration: 5000,
           isClosable: true,
           position: "top",
         });
@@ -73,7 +66,7 @@ import {
           title: "Error Occured!",
           description: "Failed to Load the Search Results",
           status: "error",
-          duration: 9000,
+          duration: 5000,
           isClosable: true,
           position: "bottom-left",
         });
@@ -89,7 +82,7 @@ import {
         toast({
           title: "Please fill all the feilds",
           status: "warning",
-          duration: 9000,
+          duration: 5000,
           isClosable: true,
           position: "top",
         });
@@ -115,7 +108,7 @@ import {
         toast({
           title: "New Group Chat Created!",
           status: "success",
-          duration: 9000,
+          duration: 5000,
           isClosable: true,
           position: "bottom",
         });
@@ -124,7 +117,7 @@ import {
           title: "Failed to Create the Chat!",
           description: error.response.data,
           status: "error",
-          duration: 9000,
+          duration: 5000,
           isClosable: true,
           position: "bottom",
         });
@@ -167,21 +160,11 @@ import {
               </FormControl>
               <Box w="100%" d="flex" flexWrap="wrap">
                 {selectedUsers.map((u) => (
-                  <Badge
+                  <UserBadgeItem
                     key={u._id}
-                    px={2}
-                    py={1}
-                    borderRadius="lg"
-                    m={1}
-                    mb={2}
-                    variant="solid"
-                    fontSize={12}
-                    colorScheme="purple"
-                    cursor="pointer"
-                    onClick={() => handleDelete(u)}
-                  >
-                    {u.name}
-                  </Badge>
+                    user={u}
+                    handleFunction={() => handleDelete(u)}
+                  />
                 ))}
               </Box>
               {loading ? (
@@ -189,39 +172,11 @@ import {
                 <div>Loading...</div>
               ) : (
                 searchResult?.map((user) => (
-                  <Box
-                    onClick={() => handleGroup(user)}
-                    cursor="pointer"
-                    bg="#E8E8E8"
-                    _hover={{
-                      background: "#38B2AC",
-                      color: "white",
-                    }}
-                    w="100%"
-                    d="flex"
-                    alignItems="center"
-                    color="black"
-                    px={3}
-                    py={2}
-                    mb={2}
+                  <UserListItem
                     key={user._id}
-                    borderRadius="lg"
-                  >
-                    <Avatar
-                      mr={2}
-                      size="sm"
-                      cursor="pointer"
-                      name={user.name}
-                      // src={user.pic}
-                    />
-                    <Box>
-                      <Text>{user.name}</Text>
-                      <Text fontSize="xs">
-                        <b>Email : </b>
-                        {user.email}
-                      </Text>
-                    </Box>
-                  </Box>
+                    user={user}
+                    handleFunction={() => handleGroup(user)}
+                  />
                 ))
               )}
             </ModalBody>
