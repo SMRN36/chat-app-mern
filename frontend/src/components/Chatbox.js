@@ -9,6 +9,8 @@ const Chatbox = ({
   setSelectedChat,
   fetchAgain,
   setFetchAgain,
+  notification,
+  setNotification,
 }) => {
 
 
@@ -30,6 +32,8 @@ const Chatbox = ({
         user={user}
         fetchAgain={fetchAgain}
         setFetchAgain={setFetchAgain}
+        notification={notification}
+        setNotification={setNotification}
       />
     </Box>
   );

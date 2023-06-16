@@ -70,9 +70,15 @@ const MyChats = ({
         alignItems="center"
       >
         My Chats
-        <GroupChatModal user={user}>
+        <GroupChatModal
+          user={user}
+          setSelectedChat={setSelectedChat}
+          chats={chats}
+          setChats={setChats}
+        >
           <Button
-            d={{ base: "flex" }}
+            d="flex"
+            fontSize={{ base: "17px", md: "10px", lg: "17px" }}
             rightIcon={<AddIcon />}
             // onClick={() => setSelectedChat("")}
           >

@@ -89,7 +89,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
   if (users.length < 2) {
     return res
       .status(400)
-      .json({ message: "More than 2 users are required to form a group chat" });
+      .send("More than 2 users are required to form a group chat");
   }
 
   users.push(req.user);
@@ -137,7 +137,7 @@ const removeFromGroup = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Remove user from Group
+// @desc    Add user to Group / Leave
 // @route   PUT /api/chat/groupadd
 // @access  Protected
 const addToGroup = asyncHandler(async (req, res) => {
